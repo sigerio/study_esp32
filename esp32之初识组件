@@ -1,0 +1,22 @@
+1、创建组件 idf.py -C components create-component components_name
+创建完成后存在如下文件结构
+components/
+└── components_name
+    ├── CMakeLists.txt
+    ├── include
+    │   └── components_name.h
+    └── components_name.c
+
+
+
+2、完成.c和.h文件的编写
+
+3、修改components/CmakeList.txt 在其中引入.c.h所用到的其他库
+  idf_component_register(SRCS "led_blink.c"
+                    INCLUDE_DIRS "include"
+                    REQUIRES other_components_name)   //drive freertos 等
+
+4、在main/Cmakelist.txt中添加 REQUIRES components_name，并在main.c中include"components_name.h"
+
+5、如果组件需要Kconfig，则新建Kconfig文件，然后编写自己的Kconfig，生成的menu将会在menuconfig的“Component config”最后显示
+
